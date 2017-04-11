@@ -25,8 +25,8 @@ make clean
 ````
 
 ## Authors
-* **Nikita Ilchenko** * - wunted7@gmail.com
-* **Yury Batov** * - batov1998@list.ru
+* **Nikita Ilchenko**  - wunted7@gmail.com
+* **Yury Batov**  - batov1998@list.ru
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
