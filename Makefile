@@ -1,6 +1,6 @@
 SHELL = /bin/sh
 
-PROJECT  := project_name
+PROJECT  := key_access
 
 # ------------------
 # External programs
