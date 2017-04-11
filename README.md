@@ -1,5 +1,5 @@
-# polytech.cs.2017.spring_project
-Template for Course Project
+# Key Access
+This programm check your personal computer handwriting with data in our database. It write :"I know you" or " I don't know you"
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
