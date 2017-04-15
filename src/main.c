@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
+#include <locale.h>
 
 int main(int argc, char **argv)
 {
+	setlocale(0, "russian");
 	//Переменные
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -26,22 +28,25 @@ int main(int argc, char **argv)
 	if (!timer) {
 		return -1;
 	}
-
+	al_set_new_display_flags(ALLEGRO_RESIZABLE);
 	display = al_create_display(640, 480);
-	
+	if (!display) {
+		return -1;
+	}
+
 	//Инициализация
-	al_install_keyboard();
+
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(display));
-	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	//
 
-	al_start_timer(timer);
+	//al_start_timer(timer);
+	printf("Здравствуйте, приветствуем Вас в программе Key-Access\n");
+	printf("Для начала работы, прошу ввести вас данную фразу\n");
 	while (!user_exit) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			time_A = al_get_time();
 		}
@@ -59,6 +64,7 @@ int main(int argc, char **argv)
 		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			user_exit = true;
 		}
+		al_flip_display();
 	}
 
 	al_destroy_display(display);
