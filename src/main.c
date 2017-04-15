@@ -11,7 +11,8 @@ int main(int argc, char **argv)
 	const float FPS = 60.0;
 	double time_A = 0.0;
 	double time_B = 0.0;
-	char KEY_CODES[1] = { 'a' };
+	char KEY_CODES[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', };
+	KEY_CODES[74] =  '  ' ;
 	//
 	if (!al_init()) {
 		return -1;
@@ -25,20 +26,15 @@ int main(int argc, char **argv)
 	if (!timer) {
 		return -1;
 	}
+
 	display = al_create_display(640, 480);
-	if (!display) {
-		return -1;
-	}
-
+	
 	//Инициализация
-
 	al_install_keyboard();
 	event_queue = al_create_event_queue();
-	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
-	al_init_font_addon();
-	al_init_ttf_addon;
 	//
 
 	al_start_timer(timer);
@@ -52,12 +48,16 @@ int main(int argc, char **argv)
 		if (ev.type == ALLEGRO_EVENT_KEY_UP) {
 			time_B = al_get_time();
 			printf("%c", KEY_CODES[ev.keyboard.keycode-1]);
+			printf("%f\n", time_B - time_A);
 		}
 
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
 				user_exit = true;
 			}
+		}
+		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			user_exit = true;
 		}
 	}
 
