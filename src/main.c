@@ -11,16 +11,16 @@
 #include <allegro5/allegro_font.h>
 
 FILE *C;
-
+double *A = NULL,s;
+int i;
 int input()
 {
 	//Переменные
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
-	double *A = NULL;
-	double N, s = 0.0;
-	int j, i = 0;
+	double N;
+	int j;
 	double time_A = 0.0;
 	double time_B = 0.0;
 	bool quit = false;
@@ -56,10 +56,12 @@ int input()
 
 	C = fopen("input.txt", "r");
 
-	while (fscanf(C, "%lf", &N) != EOF)//Берет информацию из файла и записывает в динамический массив
+
+	while (fscanf(C, "%lf", &N)>=0)//Берет информацию из файла и записывает в динамический массив
 	{
 		A = (double*)realloc(A, (i + 1) * sizeof(double));
 		A[i] = N;
+		s += A[i];
 		i++;
 	}
 	fclose(C);
@@ -90,6 +92,7 @@ int input()
 			//printf("%f\n", time_B - time_A);
 			A = (double*)realloc(A, (i + 1) * sizeof(double));
 			A[i] = time_B - time_A;
+			s += A[i];
 			++i;
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_CHAR) {
@@ -151,76 +154,27 @@ double Stewdent(int i)//Выводит коэфициент Стьюдента
 }
 
 int main(void) { //Считает погрешности с динамическим выделением памяти
+	double sr_zn = 0.0 ,disp = 0.0,t = 0.0,k = 0.0;
+	int j;
 	setlocale(LC_ALL, "Rus");
 	int a;
 	input();
-	printf("Hello,world");
-	while (true)
+	sr_zn = s / i;
+	if (i != 1)
 	{
-		scanf("%i", &a);
-	}
-	/*
-	bool done = false;
-
-	int i = 0, j = 0;
-	double sr_zn, k = 0.0, disp, s = 0.0;
-	double *A = NULL;
-	double t;
-	char c;
-	double N;
-
-
-	C = fopen("input.txt", "r");
-
-
-	while (fscanf(C, "%lf", &N) != EOF)//Берет информацию из файла и записывает в динамический массив
+	for (j = 0; j<i; j++)
 	{
-		A = (double*)realloc(A, (i + 1) * sizeof(double));
-		A[i] = N;
-		s = s + A[i];
-		i++;
+	k = k + (A[j] - sr_zn)*(A[j] - sr_zn);
 	}
-	fclose(C);
-
-
-	for (j = 0; j < i; j++) {
-		printf("%lf\n", A[j]);
+	disp = sqrt(k / (i*(i - 1)));
+	t = disp*Stewdent(i);
+	k = 0;
 	}
-
-	printf("Здравствуйте, приветствуем Вас в программе Key-Access\n");
-	printf("Для начала работы, прошу ввести вас данную фразу\n");
-
-
-	while (!done)						//Считает погрешность так же опирируя на динамическим массивом
-	{
-
-		scanf("%с", &c);
-		//fprintf(C,"%lf ",n);
-		A = (double*)realloc(A, (i + 1) * sizeof(double));
-		A[i] = time1(c);
-		s += A[i];
-		++i;
-		sr_zn = s / i;
-		if (i != 1)
-		{
-			for (j = 0; j<i; j++)
-			{
-				k = k + (A[j] - sr_zn)*(A[j] - sr_zn);
-			}
-
-			disp = sqrt(k / (i*(i - 1)));
-			t = disp*Stewdent(i);
-			k = 0;
-		}
-	}
-	printf("Сумма=%f\n", s);
-	printf("Cреднее значение=%f\n", sr_zn);
-	printf("Дисперсия=%f\n", disp);
-	printf("Погрешность:%f\n", t);
-
-	C = fopen("input.txt", "w");
-	for (j = 0; j<i; j++)//записывает новую информацию в тот же файл
-		fprintf(C, "%f ", A[j]);*/
+	printf("Сумма=%lf\n", s);
+	printf("Cреднее значение=%lf\n", sr_zn);
+	printf("Дисперсия=%lf\n", disp);
+	printf("Погрешность:%lf\n", t);
+	getchar();
 	return 0;
 
 }
