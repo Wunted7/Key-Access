@@ -56,22 +56,6 @@ int input()
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	//
-
-	C = fopen("input.txt", "r");
-	X = fopen("input1.txt", "w");
-
-
-	while (fscanf(C, "%lf", &N) >= 0)//Берет информацию из файла и записывает в динамический массив
-	{
-		A = (double*)realloc(A, (i + 1) * sizeof(double));
-		A[i] = N;
-		s += A[i];
-		i++;
-	}
-	fclose(C);
-
-	C = fopen("input.txt", "w");
-
 	while (!quit)
 	{
 		al_clear_to_color(al_map_rgb_f(0, 0, 0));
@@ -82,6 +66,32 @@ int input()
 
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
+		C = fopen("input.txt", "r");
+		X = fopen("input1.txt", "w");
+
+		m = h = ev.keyboard.keycode-1;
+		while (h != -1 && (fscanf(C, "%f", &N)) >= 0)
+		{
+			if (h == 0)
+			{
+				A = (double*)realloc(A, (i + 1) * sizeof(double));
+				A[i] = N;
+				s = s + A[i];
+				i++;
+			}
+			else
+			{
+				fprintf(X, " %f", N);
+			}
+			if (fgetc(C) == '\n')
+			{
+				h--;
+				if (h != 0 && m != 0)
+					fprintf(X, "\n");
+			}
+		}
+		if (m == 6)
+			fprintf(X, "\n");
 
 		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			quit = true;
@@ -102,6 +112,36 @@ int input()
 			s += A[i];
 			++i;
 		}
+		for (j = 0; j<i; j++)
+			fprintf(X, " %f", A[j]);
+		fprintf(X, "\n");
+
+		while (fscanf(C, "%f", &N) >= 0)
+		{
+			fprintf(X, " %f", N);
+			if (fgetc(C) == '\n')
+			{
+				fprintf(X, "\n");
+			}
+
+		}
+		fclose(C);
+		fclose(X);
+		//fclose(X);
+		C = fopen("input.txt", "w");
+		X = fopen("input1.txt", "r");
+		// fseek(X,0,SEEK_SET);
+		while (!feof(X))
+		{
+			fscanf(X, "%f", &N);
+			fprintf(C, " %f", N);
+			if (fgetc(X) == '\n')
+			{
+				fprintf(C, "\n");
+			}
+		}
+		//fclose(X);
+		//remove("input1.txt");
 		if (ev.type == ALLEGRO_EVENT_KEY_CHAR) {
 			if (ev.keyboard.unichar >= 32)
 			{
@@ -116,10 +156,6 @@ int input()
 
 
 	}
-	for (j = 0; j < i; ++j) {
-		fprintf(C, "%lf ", A[j]);
-	}
-	fclose(C);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
 	return 0;
