@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "input.h"
-extern int i;
+
 double Stewdent(int i)//Выводит коэфициент Стьюдента
 {
 	if (i == 2)
