@@ -13,18 +13,27 @@
 
 int main(void) {//Считает погрешности с динамическим выделением памяти
 	setlocale(LC_ALL, "Rus");
-	char a;
-	printf("Здравсивуйте ,введите 1 если хотите инициализированься и 2 если хотите авторизоваться: ?");
-	scanf("%c", &a);
-	if (a == '1')
+	int a;
+	int k;
+	printf("Здравствуйте ,введите 1 если хотите инициализироваться или 2 если хотите авторизоваться:\n");
+	scanf("%i", &a);
+	switch (a)
 	{
+	case 1:
 		input();
+		break;
+	case 2:
+		k = output();
+		if (!k) {
+			printf("I know you\n");
+		}
+		else {
+			printf("I don't know you\n");
+		}
+		break;
 	}
-	//if (a == '2') \
-	{\
-		output();\
-	}
-	printf("OK");
+	printf("OK\n");
+	getchar();
+	getchar();
 	return 0;
-
 }

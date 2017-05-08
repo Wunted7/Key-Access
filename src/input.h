@@ -1,10 +1,11 @@
 #pragma once
 #define MAX_SIZE 50
-#define MAX_LATTER 26
+#define MAX_LETTER 26
 
-double A[MAX_LATTER][MAX_SIZE], B[MAX_LATTER][2];
+double A[MAX_LETTER][MAX_SIZE];
 
 
 int input();
-
+int output();
+void strncat1(char *a);
 double Stewdent(int i);
