@@ -12,9 +12,8 @@
 #define MAX_SIZE 50
 #define MAX_LATTER 26
 
-FILE *C;
+FILE *C,*NAME,*X;
 double A[MAX_LATTER][MAX_SIZE], B[MAX_LATTER], D[MAX_LATTER][2];
-
 
 int output()
 {
@@ -22,9 +21,10 @@ int output()
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
-	int j, count = 0, k = 0 ;
+	int j, count = 0, k = 0 , count_1 = 0;
 	double time_A = 0.0, sr_zn = 0.0, sum = 0;
 	double time_B = 0.0;
+	char name[20];
 	bool quit = false;
 	if (!al_init()) {
 		return -1;
@@ -72,25 +72,25 @@ int output()
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		 {
-			if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE || ev.keyboard.keycode == ALLEGRO_KEY_SPACE) {
-				continue;
-			}
-			else {
 				time_B = al_get_time();
 				while (A[ev.keyboard.keycode - 1][k] != 0)
 				{
 					k++;
 				}
 				A[ev.keyboard.keycode - 1][k] = time_B - time_A;
+				sr_zn = time_B - time_A;
+				if(k!=0)
+				{
 				for (count = 0; count < k; count++)
 				{
 					sum = sum + A[ev.keyboard.keycode - 1][count];
 				}
-				sr_zn = sum / k;
+					sr_zn = sum / k;
+				}
 				k = 0;
 				sum = 0;
 				B[ev.keyboard.keycode - 1] = sr_zn;
-			}
+
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_CHAR) {
 			if (ev.keyboard.unichar >= 32)
@@ -103,22 +103,35 @@ int output()
 					al_ustr_truncate(tab, pos1);
 			}
 		}
-
-
 	}
-	C = fopen("", "r");
-	for (count = 0; count < 27; ++count) {
-		for (j = 0; j < 2; ++j) {
-			fscanf(C, "%.8lf", &D[count][j]);
+	NAME = fopen("NAME", "r");
+		fscanf(NAME, "%s", &name);
+		strncat1(name);
+		C = fopen(name, "r");
+		for (count = 0; count < MAX_LATTER; ++count)
+		{
+			for (j = 0; j < 2; ++j)
+			{
+				fscanf(C, "%lf", &D[count][j]);
+			}
+			if (B[count] < (D[count][0] + D[count][1]) && B[count] > (D[count][0] - D[count][1]))
+			{
+				 ++count_1;
+			}
 		}
-		if (B[count] > (D[count][0] + D[count][1])  || B[count] < (D[count][0] - D[count][1])) {
-			al_destroy_event_queue(event_queue);
-			al_destroy_display(display);
-			return 1;
+		fclose(C);
+	X = fopen("toto.txt", "w");
+	for (j = 0; j<MAX_LATTER; j++)
+		{
+			fprintf(X, "%.8lf ", B[j]);
+			fprintf(X, "\n");
 		}
-	}
-	fclose(C);
+	fclose(X);
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
-	return 0;
+	printf("%i ", count_1);
+	if (count_1 > 21)
+		return 1;
+	else
+		return 0;
 }

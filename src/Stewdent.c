@@ -33,5 +33,13 @@ double Stewdent(int i)//Выводит коэфициент Стьюдента
 		return 2.09;
 	if (i <= 30 && i>20)
 		return 2.04;
+	if (i <= 40 && i>30)
+		 return 2.02;
+	if (i <= 50 && i>40)
+		 return 2.01;
+	if (i <= 60 && i>50)
+		 return 2.00;
+	if (i > 60)
+		 return 1.96;
 
 }
