@@ -1,19 +1,9 @@
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <allegro5/allegro.h>
-#include <locale.h>
-#include <allegro5/allegro_native_dialog.h>
-#include <malloc.h>
-#include <stdlib.h>
-#include <math.h>
-#include <allegro5/allegro_font.h>
 #include "input.h"
 #define MAX_SIZE 50
-#define MAX_LATTER 26
+#define MAX_LETTER 26
 
 FILE *C, *X, *NAME;
-double A[MAX_LATTER][MAX_SIZE], B[MAX_LATTER][2];
+double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER][2];
 
 void strncat1(char *a)
 {
@@ -46,7 +36,7 @@ int input()
 	C = fopen(name, "r");
 	if (C != NULL)
 	{
-		for (i = 0; i < MAX_LATTER; i++)
+		for (i = 0; i < MAX_LETTER; i++)
 		{
 			for (j = 0; j < MAX_SIZE; j++)
 			{
@@ -109,7 +99,7 @@ int input()
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
-			if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE || ev.keyboard.keycode == ALLEGRO_KEY_SPACE) {
+			if (ev.keyboard.keycode > 27) {
 				continue;
 			}
 			else {
@@ -155,7 +145,7 @@ int input()
 
 	}
 	C = fopen(name, "w");
-	for (i = 0; i<MAX_LATTER; i++) {
+	for (i = 0; i<MAX_LETTER; i++) {
 		for (j = 0; j<MAX_SIZE; j++) {
 			fprintf(C, "%.8lf ", A[i][j]);
 		}
@@ -164,7 +154,7 @@ int input()
 	fclose(C);
 	strncat1(name);
 	X = fopen(name, "w");
-	for (i = 0; i<MAX_LATTER; i++) {
+	for (i = 0; i<MAX_LETTER; i++) {
 		for (j = 0; j<2; j++) {
 			fprintf(X, "%.8lf ", B[i][j]);
 		}
