@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "input.h"
 
 double Stewdent(int i)//Выводит коэфициент Стьюдента
