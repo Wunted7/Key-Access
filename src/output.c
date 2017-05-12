@@ -103,7 +103,7 @@ int output()
 	fscanf(NAME, "%s", &name);
 	strncat1(name);
 	C = fopen(name, "r");
-	for (count = 0; count < MAX_LATTER; ++count)
+	for (count = 0; count < MAX_LETTER; ++count)
 	{
 		for (j = 0; j < 2; ++j)
 		{
