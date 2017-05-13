@@ -1,6 +1,4 @@
-#include "lib.h"
-
-double Stewdent(int i)//Âûâîäèò êîıôèöèåíò Ñòüşäåíòà
+double Stewdent(int i)//Ğ’Ñ‹Ğ²Ğ¾Ğ´Ğ¸Ñ‚ ĞºĞ¾ÑÑ„Ğ¸Ñ†Ğ¸ĞµĞ½Ñ‚ Ğ¡Ñ‚ÑŒÑĞ´ĞµĞ½Ñ‚Ğ°
 {
 	if (i == 2)
 		return 12.71;
@@ -40,5 +38,4 @@ double Stewdent(int i)//Âûâîäèò êîıôèöèåíò Ñòüşäåíòà
 		 return 2.00;
 	if (i > 60)
 		 return 1.96;
-
 }

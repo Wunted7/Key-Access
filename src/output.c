@@ -101,7 +101,7 @@ int output()
 		}
 	}
 	NAME = fopen("NAME", "r");
-	while (fscanf(NAME, "%s", &name) != EOF)
+	while (fscanf(NAME, "%s", name) != EOF)
 	{
 		strncat1(name);
 		C = fopen(name, "r");
