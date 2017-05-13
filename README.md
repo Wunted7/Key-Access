@@ -1,5 +1,5 @@
 # Key Access
-This programm check your personal computer handwriting with data in our database. It write :"I know you" or " I don't know you"
+This programm check your personal computer handwriting with data in our database. It write :"I know you" and your name or " I don't know you"
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -10,7 +10,7 @@ The source code is organized as follows:
 Subdirectory | Description
 -------------|-------------------
 src/         | source files 
-src/tests    | unit tests 
+src/test     | unit tests 
 doc/         | documentation 
 res/         | static resources
 
