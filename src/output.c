@@ -100,21 +100,30 @@ int output()
 		}
 	}
 	NAME = fopen("NAME", "r");
-	fscanf(NAME, "%s", &name);
-	strncat1(name);
-	C = fopen(name, "r");
-	for (count = 0; count < MAX_LETTER; ++count)
+	while (fscanf(NAME, "%s", &name) != EOF)
 	{
-		for (j = 0; j < 2; ++j)
+		strncat1(name);
+		C = fopen(name, "r");
+		for (count = 0; count < MAX_LETTER; ++count)
 		{
-			fscanf(C, "%lf", &D[count][j]);
+			for (j = 0; j < 2; ++j)
+			{
+				fscanf(C, "%lf", &D[count][j]);
+			}
+			if (B[count] < (D[count][0] + D[count][1]) && B[count] > (D[count][0] - D[count][1]))
+			{
+				count_1++;
+			}
 		}
-		if (B[count] < (D[count][0] + D[count][1]) && B[count] > (D[count][0] - D[count][1]))
+		fclose(C);
+		if (count_1 > max && count_1 > 20)
 		{
-			 ++count_1;
+			max = count_1;
+			strcpy(name_1, name);
 		}
+		count_1 = 0;
 	}
-	fclose(C);
+	fclose(NAME);
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
 	printf("%i ", count_1);
