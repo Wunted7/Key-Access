@@ -3,6 +3,10 @@ This programm check your personal computer handwriting with data in our database
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+To start programm:
+````
+./key_access
+```
 
 ### Directory structure
 The source code is organized as follows:
