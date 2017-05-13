@@ -16,7 +16,6 @@ Subdirectory | Description
 src/         | source files 
 src/test     | unit tests 
 doc/         | documentation 
-res/         | static resources
 
 ### Build
 To build the project, do the following:
