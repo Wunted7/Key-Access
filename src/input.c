@@ -1,26 +1,14 @@
-#include "input.h"
+#include "lib.h"
 #define MAX_SIZE 50
 #define MAX_LETTER 26
 
 FILE *C, *X, *NAME;
 double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER][2];
 
-void strncat1(char *a)
-{
-	int i = 0;
-	while (a[i] != '\0') {
-		i++;
-	}
-	char k = '1';
-	a[i] = k;
-	i++;
-	a[i] = '\0';
-}
-
 int input()
 {
 	setlocale(LC_ALL, "Rus");
-	//РџРµСЂРµРјРµРЅРЅС‹Рµ
+	//Переменные
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
@@ -28,11 +16,12 @@ int input()
 	double time_A = 0.0, sr_zn = 0.0, p = 0, disp = 0, t = 0, sum = 0;
 	double time_B = 0.0;
 	char name[20];
-	printf("Р’РІРµРґРёС‚Рµ СЃРІРѕРµ РёРјСЏ Рё С„Р°РјРёР»РёСЋ Р±РµР· РїСЂРѕР±РµР»РѕРІ РЅР° Р°РЅРіР»РёР№СЃРєРѕРј : ");
+	printf("Введите свое имя и фамилию без пробелов на английском : ");
 	scanf("%s", &name);
-	NAME = fopen("NAME", "w");
+	NAME = fopen("NAME", "a");
 	fprintf(NAME, "%s", name);
 	fprintf(NAME, "\n");
+	fclose(NAME);
 	C = fopen(name, "r");
 	if (C != NULL)
 	{
@@ -68,7 +57,7 @@ int input()
 	ALLEGRO_USTR* str = al_ustr_new("Please enter this sentence 13 times , than enter Escape: pack my box with five dozen liquor jugs.");
 	ALLEGRO_USTR* tab = al_ustr_new("");
 	int pos1 = (int)al_ustr_size(tab);
-	//РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
+	//Инициализация
 
 	event_queue = al_create_event_queue();
 
@@ -116,14 +105,8 @@ int input()
 				sr_zn = sum / k;
 				if (k != 1)
 				{
-					for (j = 0; j < k; j++)
-					{
-						p = p + (A[i][j] - sr_zn)*(A[i][j] - sr_zn);
-					}
-					disp = sqrt(p / (k*(k - 1)));
-					t = disp*Stewdent(k);
+					t = delta(k, A[ev.keyboard.keycode - 1], sr_zn);
 				}
-				p = 0;
 				k = 0;
 				sum = 0;
 				B[ev.keyboard.keycode - 1][0] = sr_zn;

@@ -1,8 +1,9 @@
-#include "input.h"
+
+#include "lib.h"
 #define MAX_SIZE 50
 #define MAX_LETTER 26
 
-FILE *C,*NAME,*X;
+FILE *C, *NAME, *X;
 double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER], D[MAX_LETTER][2];
 
 int output()
@@ -11,10 +12,10 @@ int output()
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
-	int j, count = 0, k = 0 , count_1 = 0;
+	int j, count = 0, k = 0, count_1 = 0, max = 0;
 	double time_A = 0.0, sr_zn = 0.0, sum = 0;
 	double time_B = 0.0;
-	char name[20];
+	char name[20], name_1[20];
 	bool quit = false;
 	if (!al_init()) {
 		return -1;
@@ -124,11 +125,23 @@ int output()
 		count_1 = 0;
 	}
 	fclose(NAME);
+	X = fopen("toto.txt", "w");
+	for (j = 0; j<MAX_LETTER; j++)
+	{
+		fprintf(X, "%.8lf ", B[j]);
+		fprintf(X, "\n");
+	}
+	fclose(X);
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
-	printf("%i ", count_1);
-	if (count_1 > 21)
+	if (max != 0)
+	{
+		strncat_1(name_1);
+		printf("%s ", name_1);
 		return 1;
+	}
 	else
+	{
 		return 0;
+	}
 }

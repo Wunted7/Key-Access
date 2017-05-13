@@ -1,6 +1,4 @@
 
-
 #pragma once
 
-int input();
-
+int output();

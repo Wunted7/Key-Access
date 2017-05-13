@@ -1,6 +1,6 @@
-#include "input.h"
+#include "lib.h"
 
-double Stewdent(int i)//Р’С‹РІРѕРґРёС‚ РєРѕСЌС„РёС†РёРµРЅС‚ РЎС‚СЊСЋРґРµРЅС‚Р°
+double Stewdent(int i)//Выводит коэфициент Стьюдента
 {
 	if (i == 2)
 		return 12.71;

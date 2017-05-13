@@ -1,31 +1,31 @@
-#include "input.h"
+#include"lib.h"
 
-int main(void) {//РЎС‡РёС‚Р°РµС‚ РїРѕРіСЂРµС€РЅРѕСЃС‚Рё СЃ РґРёРЅР°РјРёС‡РµСЃРєРёРј РІС‹РґРµР»РµРЅРёРµРј РїР°РјСЏС‚Рё
+int main(void) {//Считает погрешности с динамическим выделением памяти
 	setlocale(LC_ALL, "Rus");
 	int a;
 	int k;
-	printf("Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ ,РІРІРµРґРёС‚Рµ 1 РµСЃР»Рё С…РѕС‚РёС‚Рµ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊСЃСЏ РёР»Рё 2 РµСЃР»Рё С…РѕС‚РёС‚Рµ Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊСЃСЏ:\n");
-	scanf("%i", &a);
-	if (a == 1)
+	char c;
+	do
 	{
-		input();
-	}
+		printf("Здравствуйте ,введите 1 если хотите инициализироваться или 2 если хотите авторизоваться:\n");
+		scanf("%i", &a);
+		if (a == 1)
+		{
+			input();
+		}
 
-	if(a == 2)
-	{
-		k = output();
-		printf("%i ", k);
-		if (k == 1)
+		if (a == 2)
 		{
-			printf("I know you\n");
+			k = output();
+			if (k == 0)
+			{
+				printf("I don't know you\n");
+			}
 		}
-		else
-		{
-			printf("I don't know you\n");
-		}
+		getchar();
+		printf("\nNext (y/n)? ");
+		c = getchar();
 	}
-	printf("OK\n");
-	getchar();
-	getchar();
+	while (c == 'y');
 	return 0;
 }
