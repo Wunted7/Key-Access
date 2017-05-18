@@ -1,6 +1,6 @@
 #pragma once
 /*!
-@file input.h
+@file strncat1.h
 @{
 
 \brief
