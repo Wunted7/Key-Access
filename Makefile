@@ -7,14 +7,15 @@ PROJECT  := key_access
 # ------------------
 CC  := gcc
 RM  := rm -rf
+DG  := doxygen
 
 # --------------------
 # Directories & Files
 # --------------------
 D_SRC    := ./src
+D_DOC    := ./doc
 D_TESTS  := $(D_SRC)/test
 D_UNITY  :=
-
 ENTRY_POINT := $(D_SRC)/main.c
 
 FILES_PROGR_C :=  $(filter-out $(ENTRY_POINT), $(wildcard $(D_SRC)/*.c))
@@ -27,7 +28,7 @@ PROJECT_WITHOUT_TESTS_O  := $(PROJECT_WITHOUT_TESTS:.c=.o)
 PROJECT_WITH_TESTS_O  := $(PROJECT_WITH_TESTS:.c=.o)
 
 # ------------
-# Flags 
+# Flags
 # ------------
 CFLAGS  := -Wall
 CFLAGS  += -std=c99
@@ -36,7 +37,7 @@ LIBS := `pkg-config --libs allegro-5 allegro_font-5 allegro_image-5 allegro_memf
 INCS := -I $(D_UNITY)/src -I $(D_UNITY)/extras/fixture/src 
 
 # ------------
-# Targets 
+# Targets
 # ------------
 default: $(PROJECT)
 
@@ -51,10 +52,20 @@ check: test-$(PROJECT)
 $(PROJECT): $(PROJECT_WITHOUT_TESTS_O)
 	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITHOUT_TESTS_O) -o $@  $(LIBS)
 
+.phony: doxygen
+doxygen:
+	$(DG) $(D_DOC)/doxygen.config
+
+.phony: html
+html: doxygen
+
+.phony: pdf
+pdf: doxygen
+	make -C $(D_DOC)/output/latex
 test-$(PROJECT): $(PROJECT_WITH_TESTS_O)
 	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITH_TESTS_O) -o $@ $(LIBS) $(INCS)
-
 .phony:	clean
 	
 clean:
 	-$(RM) $(PROJECT_WITH_TESTS_O) $(PROJECT) test-$(PROJECT)
+	-$(RM) $(FILES_O) $(PROJECT) $(D_DOC)/output
