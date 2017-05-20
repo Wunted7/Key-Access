@@ -1,4 +1,13 @@
 #pragma once
+/*!
+@file lib.h
+@{
+
+\brief
+Файл отвечает за подключаемые библиотеки
+*@author Батов Юрий \n
+*@author Ильченко Никита
+*/
 
 #include <stdio.h>
 #include <allegro5/allegro.h>
@@ -14,3 +23,6 @@
 #include "strncat1.h"
 #include "delta.h"
 #include "strncat_1.h"
+/**
+@}
+*/

@@ -2,9 +2,26 @@
 #include "lib.h"
 #define MAX_SIZE 50
 #define MAX_LETTER 26
+#define COLUMS_IN_FILE1 2
+/*!
+@file output.c
+@{
 
+\brief
+Файл отвечает за авторизацию пользователей
+*
+*
+    *@author Батов Юрий \n
+    *@author Ильченко Никита
+*/
+/** По введенным значениям инициализирует пользователя, сравнивая его значения с значениями в базе данных
+*/
+/**
+    ##Функция определяет время удержания клавиши и определяет , что за буква была нажата пользователем
+    ##Происходит обработка полученных значений (подсчет погрешностей) и сравнение с эталонами
+*/
 FILE *C, *NAME, *X;
-double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER], D[MAX_LETTER][2];
+double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER], D[MAX_LETTER][COLUMS_IN_FILE1];
 
 int output()
 {
@@ -13,8 +30,7 @@ int output()
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
 	int j, count = 0, k = 0, count_1 = 0, max = 0;
-	double time_A = 0.0, sr_zn = 0.0, sum = 0;
-	double time_B = 0.0;
+	double time_of_press = 0.0, sr_zn = 0.0, sum = 0, time_of_release = 0.0;
 	char name[20], name_1[20];
 	bool quit = false;
 	if (!al_init()) {
@@ -59,7 +75,7 @@ int output()
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
 				quit = true;
 			}
-			time_A = al_get_time();
+			time_of_input = al_get_time();
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
@@ -67,13 +83,13 @@ int output()
 				continue;
 			}
 			else {
-				time_B = al_get_time();
+				time_of_release = al_get_time();
 				while (A[ev.keyboard.keycode - 1][k] != 0)
 				{
 					k++;
 				}
-				A[ev.keyboard.keycode - 1][k] = time_B - time_A;
-				sr_zn = time_B - time_A;
+				A[ev.keyboard.keycode - 1][k] = time_of_release - time_of_input;
+				sr_zn = time_of_release - time_of_input;
 				if (k != 0)
 				{
 					for (count = 0; count < k; count++)
@@ -125,13 +141,6 @@ int output()
 		count_1 = 0;
 	}
 	fclose(NAME);
-	X = fopen("toto.txt", "w");
-	for (j = 0; j<MAX_LETTER; j++)
-	{
-		fprintf(X, "%.8lf ", B[j]);
-		fprintf(X, "\n");
-	}
-	fclose(X);
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
 	if (max != 0)
@@ -145,3 +154,6 @@ int output()
 		return 0;
 	}
 }
+/**
+@}
+*/

@@ -1,8 +1,9 @@
 #include "lib.h"
 #define MAX_SIZE 50
 #define MAX_LETTER 26
+#define COLUMS_IN_FILE1 2
 /*!
-@file input.h
+@file input.c
 @{
 
 \brief
@@ -19,7 +20,7 @@
     ##Происходит обработка полученных значений (подсчет погрешностей)
 */
 FILE *C, *X, *NAME;
-double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER][2];
+double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER][COLUMS_IN_FILE1];
 
 int input()
 {
@@ -164,3 +165,6 @@ int input()
 	al_destroy_event_queue(event_queue);
 	return 0;
 }
+/**
+@}
+*/
