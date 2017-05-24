@@ -1,5 +1,3 @@
-#define UNITY_INCLUDE_DOUBLE
-
 #include "unity.h"
 #include "unity_fixture.h"
 

@@ -7,7 +7,9 @@ TEST_GROUP(TestString);
 TEST_GROUP_RUNNER(TestString)
 {
     RUN_TEST_CASE(TestString, namefile_add_1);
+    RUN_TEST_CASE(TestString, namefile_add_1_2);
     RUN_TEST_CASE(TestString, namefile_delete_1);
+    RUN_TEST_CASE(TestString, namefile_delete_1_2);
 }
 
 TEST_SETUP(TestString)
@@ -20,13 +22,25 @@ TEST_TEAR_DOWN(TestString)
 
 TEST(TestString, namefile_add_1)
 {
-	char a[20]="NAME1", b[20]="NAME"; 
+	char a[20]="NAME1", b[20]="NAME";
+	strncat1(b);
+	TEST_ASSERT_EQUAL_STRING(a, b);
+}
+TEST(TestString, namefile_add_1_2)
+{
+	char a[20]="N1", b[20]="N";
 	strncat1(b);
 	TEST_ASSERT_EQUAL_STRING(a, b);
 }
 TEST(TestString, namefile_delete_1)
 {
 	char a[20]="NAME", b[20]="NAME1";
+	strncat_1(b);
+	TEST_ASSERT_EQUAL_STRING(a, b);
+}
+TEST(TestString, namefile_delete_1_2)
+{
+	char a[20]="N", b[20]="N1";
 	strncat_1(b);
 	TEST_ASSERT_EQUAL_STRING(a, b);
 }
