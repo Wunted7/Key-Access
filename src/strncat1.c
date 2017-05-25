@@ -7,8 +7,8 @@
 Файл отвечает за работу с именами файлов
 *
 *
-    *@author Батов Юрий \n
-    *@author Ильченко Никита
+    *@author Батов Юрий email - batov1998@list.ru\n
+    *@author Ильченко Никита email - wunted7@gmail.com
 */
 /** Добавляет 1 в имя файла
 */
@@ -16,16 +16,17 @@
     ##Функции на вход подается имя файла
     ##В конце функции имя файла с 1
 */
-void strncat1(char *a)
+void strncat1(char *stroka)
 {
 	int i = 0;
-	while (a[i] != '\0') {
+	while (stroka[i] != '\0')
+	{
 		i++;
 	}
 	char k = '1';
-	a[i] = k;
+	stroka[i] = k;
 	i++;
-	a[i] = '\0';
+	stroka[i] = '\0';
 }
 /**
 @}

@@ -5,8 +5,8 @@
 
 \brief
 Файл отвечает за подключаемые библиотеки
-*@author Батов Юрий \n
-*@author Ильченко Никита
+*@author Батов Юрий email - batov1998@list.ru\n
+*@author Ильченко Никита email - wunted7@gmail.com
 */
 
 #include <stdio.h>
@@ -23,6 +23,7 @@
 #include "strncat1.h"
 #include "delta.h"
 #include "strncat_1.h"
+#include "string.h"
 /**
 @}
 */

@@ -3,19 +3,22 @@
 
 int main(void) {//вывод на консоль предложения об авторизации и регистрации
 	setlocale(LC_ALL, "Rus");
-	int a;
+    unsigned int a;
 	int k;
 	char c;
 	do
 	{
 		printf("Здравствуйте ,введите 1 если хотите инициализироваться или 2 если хотите авторизоваться:\n");
 		scanf("%i", &a);
-		if (a == 1)
+		if(a != 1 && a != 2)
+        {
+            continue;
+        }
+		else if (a == 1)
 		{
 			input();
 		}
-
-		if (a == 2)
+		else (a == 2)
 		{
 			k = output();
 			if (k == 0)
