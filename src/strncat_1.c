@@ -18,13 +18,13 @@
 */
 void strncat_1(char *stroka)
 {
-	int i = 0;
-	while (stroka[i] != '\0')
+    unsigned int i = 0;
+    while (stroka[i] != '\0')
     {
-		i++;
-	}
-	i--;
-	stroka[i] = '\0';
+        i++;
+    }
+    i--;
+    stroka[i] = '\0';
 }
 /**
 @}

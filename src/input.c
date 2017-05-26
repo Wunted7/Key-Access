@@ -11,76 +11,75 @@
   Файл отвечает за регистрацию пользователей
   *
   *
-      *@author Батов Юрий email - batov1998@list.ru\n
-      *@author Ильченко Никита email - wunted7@gmail.com
+    *@author Батов Юрий email - batov1998@list.ru\n
+    *@author Ильченко Никита email - wunted7@gmail.com
   */
   /** Регистрирует новых пользователей и записывает их имена в файл, создает файл с их персональными данными
   */
   /**
-      ##Функция определяет время удержания клавиши и определяет , что за буква была нажата пользователем
-      ##Происходит обработка полученных значений (подсчет погрешностей)
+    ##Функция определяет время удержания клавиши и определяет , что за буква была нажата пользователем
+    ##Происходит обработка полученных значений (подсчет погрешностей)
   */
-  FILE *C, *X, *NAME;
-  double A[MAX_LETTER][MAX_SIZE], B[MAX_LETTER][COLUMS_IN_FILE1];
-
+  double A[MAX_LETTER][MAX_SIZE];
   int input()
   {
-      setlocale(LC_ALL, "Rus");
-      //Переменные
-      ALLEGRO_DISPLAY *display = NULL;
-      ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-
-      int j, i, k = 0;
-      double time_A = 0.0, sr_zn = 0.0, t = 0, sum = 0;
-      double time_B = 0.0;
-      char name[LEN_NAME_FILE]={0};
-      while(1)
-      {
-          printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
-          if(strlen(name) <= LEN_NAME_FILE)
+    setlocale(LC_ALL, "Rus");
+    //Переменные
+    ALLEGRO_DISPLAY *display = NULL;
+    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+    FILE *C, *X, *NAME;
+    double B[MAX_LETTER][COLUMS_IN_FILE1];
+    unsigned int j, i, k = 0;
+    double time_A = 0.0, sr_zn = 0.0, t = 0, sum = 0;
+    double time_B = 0.0;
+    char name[LEN_NAME_FILE]={0};
+    while(1)
+    {
+        printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
+        if(strlen(name) <= LEN_NAME_FILE)
+        {
+          scanf("%s", name);
+          break;
+        }
+    }
+    NAME = fopen("NAME", "a");
+    if (NAME == NULL)
+        {
+          puts("Problems");
+          return EXIT_FAILURE;
+        }
+    fprintf(NAME, "%s\n", name);
+    fclose(NAME);
+    C = fopen(name, "r");
+    if (C != NULL)
+    {
+        for (i = 0; i < MAX_LETTER; i++)
+        {
+          for (j = 0; j < MAX_SIZE; j++)
           {
-              scanf("%s", name);
-              break;
+            fscanf(C, "%lf", &A[i][j]);
           }
-      }
-      NAME = fopen("NAME", "a");
-      if (NAME == NULL)
-          {
-              puts("Problems");
-              return EXIT_FAILURE;
-          }
-      fprintf(NAME, "%s\n", name);
-      fclose(NAME);
-      C = fopen(name, "r");
-      if (C != NULL)
-      {
-          for (i = 0; i < MAX_LETTER; i++)
-          {
-              for (j = 0; j < MAX_SIZE; j++)
-              {
-                  fscanf(C, "%lf", &A[i][j]);
-              }
-          }
-      }
-      else
-      {
-          C = fopen(name, "w");
-      }
-      fclose(C);
-      bool quit = false;
-      if (!al_init())
-      {
-          return -1;
-      }
-      if (!al_install_keyboard())
-      {
-          return -1;
-      }
-      al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
-      display = al_create_display(800, 600);
-      if (!display)
-      {
-          return -1;
+        }
+    }
+    else
+    {
+        C = fopen(name, "w");
+    }
+    fclose(C);
+    bool quit = false;
+    if (!al_init())
+    {
+        return -1;
+    }
+    if (!al_install_keyboard())
+    {
+        return -1;
+    }
+    al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
+    display = al_create_display(800, 600);
+    if (!display)
+    {
+        return -1;
   	}
 
   	ALLEGRO_FONT* font = al_create_builtin_font();
@@ -103,7 +102,7 @@
   		al_wait_for_event(event_queue, &ev);
 
   		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-          {
+        {
   			quit = true;
   		}
   		if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -132,8 +131,8 @@
   					k++;
   				}
   				if(k <= MAX_SIZE)
-                  {
-                      A[ev.keyboard.keycode - 1][k] = time_B - time_A;
+            {
+                A[ev.keyboard.keycode - 1][k] = time_B - time_A;
   				}
   				for (i = 0; i < k; i++)
   				{
@@ -167,12 +166,12 @@
   	}
   	C = fopen(name, "w");
   	if (C == NULL)
-          {
-              puts("Problems");
-              return EXIT_FAILURE;
-          }
+        {
+          puts("Problems");
+          return EXIT_FAILURE;
+        }
   	for (i = 0; i<MAX_LETTER; i++)
-          {
+        {
   		for (j = 0; j<MAX_SIZE; j++)
   		{
   			fprintf(C, "%.8lf ", A[i][j]);
@@ -183,10 +182,10 @@
   	strncat1(name);
   	X = fopen(name, "w");
   	if (X == NULL)
-          {
-              puts("Problems");
-              return EXIT_FAILURE;
-          }
+        {
+          puts("Problems");
+          return EXIT_FAILURE;
+        }
   	for (i = 0; i<MAX_LETTER; i++)
   	{
   		for (j = 0; j<2; j++)

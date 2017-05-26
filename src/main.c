@@ -71,34 +71,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     *@author Ильченко Никита
 */
 int main(void) {//вывод на консоль предложения об авторизации и регистрации
-	setlocale(LC_ALL, "Rus");
-	unsigned int a;
-	int k;
-	char c;
-	do
-	{
-		printf("Здравствуйте ,введите 1 если хотите инициализироваться или 2 если хотите авторизоваться:\n");
-		scanf("%i", &a);
-		if (a == 1)
-		{
-			input();
-		}
-		else if (a == 2)
-		{
-			k = output();
-			if (k == 0)
-			{
-				printf("I don't know you\n");
-			}
-		}
-		else
-		{
-			continue;
-		}
-		getchar();
-		printf("\nNext (y/n)? ");
-		c = getchar();
-	}while (c == 'y');
-	return 0;
+    setlocale(LC_ALL, "Rus");
+    unsigned int a;
+    int k;
+    char c;
+    do
+    {
+        printf("Здравствуйте ,введите 1 если хотите инициализироваться или 2 если хотите авторизоваться:\n");
+        scanf("%i", &a);
+        if (a == 1)
+        {
+            input();
+        }
+        else if (a == 2)
+        {
+            k = output();
+            if (k == 0)
+            {
+                printf("I don't know you\n");
+            }
+        }
+        else
+        {
+            continue;
+        }
+        getchar();
+        printf("\nNext (y/n)? ");
+        c = getchar();
+    }while (c == 'y');
+    return 0;
 }
 @}
