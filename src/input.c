@@ -49,8 +49,7 @@ int input()
             puts("Problems");
             return EXIT_FAILURE;
         }
-    fprintf(NAME, "%s", name);
-    fprintf(NAME, "\n");
+    fprintf(NAME, "%s\n", name);
     fclose(NAME);
     C = fopen(name, "r");
     if (C != NULL)

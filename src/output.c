@@ -74,7 +74,7 @@ int output()
 			{
 				quit = true;
 			}
-			time_of_input = al_get_time();
+			time_of_press = al_get_time();
 		}
 		if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
@@ -91,9 +91,9 @@ int output()
 				}
 				if(k <= MAX_SIZE)
                 {
-                    A[ev.keyboard.keycode - 1][k] = time_of_release - time_of_input;
+                    A[ev.keyboard.keycode - 1][k] = time_of_release - time_of_press;
 				}
-				sr_zn = time_of_release - time_of_input;
+				sr_zn = time_of_release - time_of_press;
 				if (k != 0)
 				{
 					for (count = 0; count < k; count++)
@@ -125,7 +125,8 @@ int output()
 	if (NAME == NULL)
 	{
 		puts("Problems");
-		return EXIT_FAILURE;
+		al_destroy_event_queue(event_queue);
+	        al_destroy_display(display);
 	}
 	while (fscanf(NAME, "%s", name) != EOF)
 	{
@@ -134,7 +135,8 @@ int output()
 		if (C == NULL)
         {
             puts("Problems");
-            return EXIT_FAILURE;
+	    al_destroy_event_queue(event_queue);
+	    al_destroy_display(display);
         }
 		for (count = 0; count < MAX_LETTER; ++count)
 		{
