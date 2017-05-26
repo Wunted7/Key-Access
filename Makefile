@@ -68,4 +68,4 @@ test-$(PROJECT): $(PROJECT_WITH_TESTS_O)
 	
 clean:
 	-$(RM) $(PROJECT_WITH_TESTS_O) $(PROJECT) test-$(PROJECT)
-	-$(RM) $(FILES_O) $(PROJECT) $(D_DOC)/output
+	-$(RM) $(FILES_O) $(PROJECT) $(D_DOC)/output $(D_SRC)/main.o
