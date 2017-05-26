@@ -1,30 +1,54 @@
 # Key Access
-This programm check your personal computer handwriting with data in our database. It write :"I know you" and your name or " I don't know you"
+Эта программа позволяет регистрировать и авторизовывать пользователей. Программа считывает время удержания клавиш при печати предоставленного текста. В случае успеха авторизации выводит имя человека. Так же позволяет зарегистрировать нового пользователя.
 
-## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-To start programm:
+## Как начать
+Эти инструкции помогут вам запустить программу.
+Чтобы начать:
 ````
 ./key_access
 ````
+### Интрефейс
+Авторизация:
+![Image alt](http://cdn1.savepice.ru/uploads/2017/5/26/d4b7964b6d9c5e75ddcd62fdb65aef0c-full.jpg)
+Для авторизации нужно ввести в консоли 2 и в появившемся окне окне ввести предложенную фразу.
 
-### Directory structure
-The source code is organized as follows:
+Регистрация:
+![Image alt](http://cdn1.savepice.ru/uploads/2017/5/26/5b5972a3d3de3f15b7f39ef9e7966a69-full.jpg)
+Для регистрации нужно ввести 1, затем ввести свое имя на английском, затем в появившемся окне окне ввести предложенную фразу несколько раз.
+
+### Структура
+Исходный код устроен следующим образом:
 
 Subdirectory | Description
 -------------|-------------------
-src/         | source files 
-src/test     | unit tests 
-doc/         | documentation 
+src/         | source files
+src/test     | unit tests
+doc/         | documentation
 
-### Build
-To build the project, do the following:
+### Сборка
+Для сборки программы:
 ````
 make
 ````
-To rebuild everything from scratch, do the following:
+Для удаления программы:
 ````
 make clean
+````
+Для сборки тестов:
+````
+make D_UNITY=../Unity check
+````
+Для сборки документации:
+````
+make doxygen
+````
+Для сборки документации в формате PDF:
+````
+make pdf
+````
+Для сборки документации в формате HTML:
+````
+make html
 ````
 
 ## Authors
