@@ -37,17 +37,26 @@ int output()
     bool quit = false;
     if (!al_init())
     {
-        return -1;
+        puts("Проблемы с загрузкой , попробуйте снова");
+        al_destroy_display(display);
+        al_destroy_event_queue(event_queue);
+        return EXIT_FAILURE;
     }
     if (!al_install_keyboard())
     {
-        return -1;
+        puts("Проблемы с загрузкой , попробуйте снова");
+        al_destroy_display(display);
+        al_destroy_event_queue(event_queue);
+        return EXIT_FAILURE;
     }
     al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
     display = al_create_display(800, 600);
     if (!display)
     {
-        return -1;
+        puts("Проблемы с загрузкой , попробуйте снова");
+        al_destroy_display(display);
+        al_destroy_event_queue(event_queue);
+        return EXIT_FAILURE;
     }
     ALLEGRO_FONT* font = al_create_builtin_font();
     ALLEGRO_USTR* str = al_ustr_new("Please enter this sentence: pack my box with five dozen liquor jugs.");
@@ -126,9 +135,10 @@ int output()
     NAME = fopen("NAME", "r");
     if (NAME == NULL)
     {
-        puts("Problems");
+        puts("Проблемы с открытием файла, попробуйте снова");
+        al_destroy_display(display);
         al_destroy_event_queue(event_queue);
-            al_destroy_display(display);
+        return EXIT_FAILURE;
     }
     while (fscanf(NAME, "%s", name) != EOF)
     {
@@ -136,9 +146,10 @@ int output()
         C = fopen(name, "r");
         if (C == NULL)
         {
-            puts("Problems");
-        al_destroy_event_queue(event_queue);
-        al_destroy_display(display);
+            puts("Проблемы с открытием файла, попробуйте снова");
+            al_destroy_display(display);
+            al_destroy_event_queue(event_queue);
+            return EXIT_FAILURE;
         }
         for (count = 0; count < MAX_LETTER; ++count)
         {

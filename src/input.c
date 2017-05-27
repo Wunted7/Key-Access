@@ -45,8 +45,8 @@
     NAME = fopen("NAME", "a");
     if (NAME == NULL)
         {
-          puts("Problems");
-          return EXIT_FAILURE;
+          puts("Проблемы с открытием файла , попробуйте снова");
+          return 0;
         }
     fprintf(NAME, "%s\n", name);
     fclose(NAME);
@@ -69,17 +69,26 @@
     bool quit = false;
     if (!al_init())
     {
-        return -1;
+        puts("Проблемы с загрузкой , попробуйте снова");
+        al_destroy_display(display);
+        al_destroy_event_queue(event_queue);
+        return EXIT_FAILURE;
     }
     if (!al_install_keyboard())
     {
-        return -1;
+        puts("Проблемы с загрузкой , попробуйте снова");
+        al_destroy_display(display);
+        al_destroy_event_queue(event_queue);
+        return EXIT_FAILURE;
     }
     al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
     display = al_create_display(800, 600);
     if (!display)
     {
-        return -1;
+        puts("Проблемы с загрузкой , попробуйте снова");
+        al_destroy_display(display);
+        al_destroy_event_queue(event_queue);
+        return EXIT_FAILURE;
   	}
 
   	ALLEGRO_FONT* font = al_create_builtin_font();
@@ -167,8 +176,8 @@
   	C = fopen(name, "w");
   	if (C == NULL)
         {
-          puts("Problems");
-          return EXIT_FAILURE;
+            puts("Проблемы с открытием файла, попробуйте снова");
+            return EXIT_FAILURE;
         }
   	for (i = 0; i<MAX_LETTER; i++)
         {
@@ -183,8 +192,8 @@
   	X = fopen(name, "w");
   	if (X == NULL)
         {
-          puts("Problems");
-          return EXIT_FAILURE;
+            puts("Проблемы с открытием файла, попробуйте снова");
+            return EXIT_FAILURE;
         }
   	for (i = 0; i<MAX_LETTER; i++)
   	{
