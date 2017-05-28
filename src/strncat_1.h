@@ -9,7 +9,7 @@
   *@author Ильченко Никита email - wunted7@gmail.com
 */
 /**  Удаляет 1 из имени файла
-    \param[in] *a имя файла
+    \param[in] *stroka имя файла
 */
 void strncat_1(char *stroka);
 /**
