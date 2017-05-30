@@ -33,13 +33,7 @@ TEST_TEAR_DOWN(TestErrors)
 TEST(TestErrors, delta1)
 {
 	double A[]={1.0, 2.0};
-	int j;
-	double sumd = 0.0, disp;
-	for (j = 0; j<2; ++j){
-		sumd += (A[j] - 1.5)*(A[j] - 1.5);
-	}
-	disp = sqrt(sumd / (2*(2 - 1)));
-	double a = disp*Stewdent(2);
+	double a = 6.355;
 	double b = delta(2, A, 1.5);
 	TEST_ASSERT_EQUAL_FLOAT(a, b);
 }
@@ -50,13 +44,7 @@ TEST(TestErrors, delta1)
 TEST(TestErrors, delta2)
 {
 	double A[]={1.0, 2.0, 3.0};
-	int j;
-	double sumd = 0.0, disp;
-	for (j = 0; j<3; ++j){
-		sumd += (A[j] - 2)*(A[j] - 2);
-	}
-	disp = sqrt(sumd / (3*(3 - 1)));
-	double a = disp*Stewdent(3);
+	double a = sqrt(2.0/6.0)*4.3;
 	double b = delta(3, A, 2);
 	TEST_ASSERT_EQUAL_FLOAT(a, b);
 }
@@ -67,13 +55,7 @@ TEST(TestErrors, delta2)
 TEST(TestErrors, delta3)
 {
 	double A[]={1.0, 3.0};
-	int j;
-	double sumd = 0.0, disp;
-	for (j = 0; j<2; ++j){
-		sumd += (A[j] - 2)*(A[j] - 2);
-	}
-	disp = sqrt(sumd / (2*(2 - 1)));
-	double a = disp*Stewdent(2);
+	double a = sqrt(2.0/2.0)*12.71;
 	double b = delta(2, A, 2);
 	TEST_ASSERT_EQUAL_FLOAT(a, b);
 }
