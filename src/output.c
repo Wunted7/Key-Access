@@ -16,6 +16,7 @@
         \return 0 Если пользователь не определен
         \return 1 Если пользователь определен, так же выводится имя пользователя
 */
+#include "lib.h"
 FILE *C, *NAME;
 double A[MAX_LETTER][MAX_SIZE];
 
@@ -113,12 +114,12 @@ int output()
             {
             if (ev.keyboard.unichar >= 32)
             {
-                pos1 += al_ustr_append_chr(tab, ev.keyboard.unichar);
+                position += al_ustr_append_chr(tab, ev.keyboard.unichar);
             }
             else if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
             {
-                if (al_ustr_prev(tab, &pos1))
-                    al_ustr_truncate(tab, pos1);
+                if (al_ustr_prev(tab, &position))
+                    al_ustr_truncate(tab, position);
             }
         }
     }

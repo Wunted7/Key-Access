@@ -1,4 +1,3 @@
-#pragma once
 /*!
 @file Stewdent.h
 @{
@@ -12,7 +11,10 @@
     \param[in] i количество элементов
     \param[out] - коэффициент Стьюдента
 */
+#ifndef STEWDENT_H
+#define STEWDENT_H
 double Stewdent(int i);
+#endif
 /**
 @}
 */

@@ -1,4 +1,3 @@
-#pragma once
 /*!
 @file strncat1.h
 @{
@@ -11,7 +10,10 @@
 /** Добавляет 1 из имени файла
     \param[in] *stroka имя файла
 */
+#ifndef STRNCAT1_H
+#define STRNCAT1_H
 void strncat1(char *stroka);
+#endif
 /**
 @}
 */

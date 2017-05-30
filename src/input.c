@@ -1,8 +1,3 @@
-  #include "lib.h"
-  #define MAX_SIZE 50
-  #define MAX_LETTER 26
-  #define COLUMS_IN_FILE1 2
-  #define LEN_NAME_FILE 20
   /*!
   @file input.c
   @{
@@ -20,6 +15,7 @@
     ##Функция определяет время удержания клавиши и определяет , что за буква была нажата пользователем
     ##Происходит обработка полученных значений (подсчет погрешностей)
   */
+  #include "lib.h"
   double A[MAX_LETTER][MAX_SIZE];
   int input()
   {
@@ -27,26 +23,18 @@
     //Переменные
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-    FILE *C, *X, *NAME;
+    FILE *C =  NULL, *X = NULL, *NAME = NULL;
     double B[MAX_LETTER][COLUMS_IN_FILE1];
-    unsigned int j, i, k = 0;
-    double time_A = 0.0, sr_zn = 0.0, t = 0, sum = 0;
-    double time_B = 0.0;
+    unsigned int j = 0, i = 0, k = 0;
+    double time_of_press = 0.0, sr_zn = 0.0, interval = 0, sum = 0, time_of_release = 0.0;
     char name[LEN_NAME_FILE]={0};
-    while(1)
-    {
-        printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
-        if(strlen(name) <= LEN_NAME_FILE)
-        {
-          scanf("%s", name);
-          break;
-        }
-    }
+    printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
+    scanf("%s", name);
     NAME = fopen("NAME", "a");
     if (NAME == NULL)
         {
-          puts("Problems");
-          return EXIT_FAILURE;
+          puts("Проблемы с открытием файла , попробуйте снова");
+          return 0;
         }
     fprintf(NAME, "%s\n", name);
     fclose(NAME);
@@ -69,23 +57,27 @@
     bool quit = false;
     if (!al_init())
     {
-        return -1;
+        puts("Проблемы с загрузкой ALLEGRO, попробуйте снова");
+        return EXIT_FAILURE;
     }
     if (!al_install_keyboard())
     {
-        return -1;
+        puts("Проблемы с клавиатурой ALLEGRO, попробуйте снова");
+        return EXIT_FAILURE;
     }
     al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
-    display = al_create_display(800, 600);
+    display = al_create_display(SCREEN_HEIGHT, SCREEN_WIDTH);
     if (!display)
     {
-        return -1;
+        puts("Проблемы с дисплеем, попробуйте снова");
+        al_destroy_display(display);
+        return EXIT_FAILURE;
   	}
 
   	ALLEGRO_FONT* font = al_create_builtin_font();
   	ALLEGRO_USTR* str = al_ustr_new("Please enter this sentence 13 times , than enter Escape: pack my box with five dozen liquor jugs.");
   	ALLEGRO_USTR* tab = al_ustr_new("");
-  	int pos1 = (int)al_ustr_size(tab);
+  	int position = (int)al_ustr_size(tab);
   	//Инициализация
   	event_queue = al_create_event_queue();
 
@@ -115,7 +107,7 @@
   			{
   				al_ustr_append_cstr(tab, "\n");
   			}
-  			time_A = al_get_time();
+  			time_of_press = al_get_time();
   		}
   		if (ev.type == ALLEGRO_EVENT_KEY_UP)
   		{
@@ -125,14 +117,14 @@
   			}
   			else
   			{
-  				time_B = al_get_time();
+  				time_of_release = al_get_time();
   				while (A[ev.keyboard.keycode - 1][k] != 0)
   				{
   					k++;
   				}
   				if(k <= MAX_SIZE)
             {
-                A[ev.keyboard.keycode - 1][k] = time_B - time_A;
+                A[ev.keyboard.keycode - 1][k] = time_of_release - time_of_press;
   				}
   				for (i = 0; i < k; i++)
   				{
@@ -141,24 +133,24 @@
   				sr_zn = sum / k;
   				if (k != 1)
   				{
-  					t = delta(k, A[ev.keyboard.keycode - 1], sr_zn);
+  					interval = delta(k, A[ev.keyboard.keycode - 1], sr_zn);
   				}
   				k = 0;
   				sum = 0;
   				B[ev.keyboard.keycode - 1][0] = sr_zn;
-  				B[ev.keyboard.keycode - 1][1] = t;
+  				B[ev.keyboard.keycode - 1][1] = interval;
   			}
   		}
   		if (ev.type == ALLEGRO_EVENT_KEY_CHAR)
   		{
   			if (ev.keyboard.unichar >= 32)
   			{
-  				pos1 += al_ustr_append_chr(tab, ev.keyboard.unichar);
+  				position += al_ustr_append_chr(tab, ev.keyboard.unichar);
   			}
   			else if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
   			{
-  				if (al_ustr_prev(tab, &pos1))
-  					al_ustr_truncate(tab, pos1);
+  				if (al_ustr_prev(tab, &position))
+  					al_ustr_truncate(tab, position);
   			}
   		}
 
@@ -167,8 +159,8 @@
   	C = fopen(name, "w");
   	if (C == NULL)
         {
-          puts("Problems");
-          return EXIT_FAILURE;
+            puts("Проблемы с открытием файла, попробуйте снова");
+            return EXIT_FAILURE;
         }
   	for (i = 0; i<MAX_LETTER; i++)
         {
@@ -183,8 +175,8 @@
   	X = fopen(name, "w");
   	if (X == NULL)
         {
-          puts("Problems");
-          return EXIT_FAILURE;
+            puts("Проблемы с открытием файла, попробуйте снова");
+            return EXIT_FAILURE;
         }
   	for (i = 0; i<MAX_LETTER; i++)
   	{
