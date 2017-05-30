@@ -27,9 +27,9 @@
     double B[MAX_LETTER][COLUMS_IN_FILE1];
     unsigned int j = 0, i = 0, k = 0;
     double time_of_press = 0.0, sr_zn = 0.0, interrval = 0, sum = 0, time_of_release = 0.0;
-    char name[LEN_NAME_FILE]={0};
+    unsigned char name[LEN_NAME_FILE]={0};
     printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
-    scanf("%s", name);
+    scanf("%s", &name);
     NAME = fopen("NAME", "a");
     if (NAME == NULL)
         {
