@@ -1,10 +1,4 @@
-  #include "lib.h"
-  #define MAX_SIZE 50
-  #define MAX_LETTER 26
-  #define COLUMS_IN_FILE1 2
-  #define LEN_NAME_FILE 20
-  #define SCREEN_HEIGHT 800
-  #define SCREEN_WIDTH 600
+
   /*!
   @file input.c
   @{
@@ -34,15 +28,8 @@
     unsigned int j = 0, i = 0, k = 0;
     double time_of_press = 0.0, sr_zn = 0.0, interrval = 0, sum = 0, time_of_release = 0.0;
     char name[LEN_NAME_FILE]={0};
-    while(1)
-    {
-        printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
-        if(strlen(name) <= LEN_NAME_FILE)
-        {
-          scanf("%s", name);
-          break;
-        }
-    }
+    printf("Введите свое имя и фамилию без пробелов на английском не более 20 символов: ");
+    scanf("%s", name);
     NAME = fopen("NAME", "a");
     if (NAME == NULL)
         {
