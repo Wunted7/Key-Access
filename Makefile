@@ -14,7 +14,7 @@ DG  := doxygen
 # --------------------
 D_SRC    := ./src
 D_DOC    := ./doc
-D_TESTS  := $(D_SRC)/test
+D_TESTS  := $(D_SRC)/tests
 D_UNITY  :=
 ENTRY_POINT := $(D_SRC)/main.c
 
@@ -34,7 +34,7 @@ CFLAGS  := -Wall
 CFLAGS  += -std=c99
 LFLAGS  :=
 LIBS := `pkg-config --libs allegro-5 allegro_font-5 allegro_image-5 allegro_memfile-5 allegro_primitives-5 allegro_acodec-5 allegro_ttf-5 allegro_dialog-5` -lm
-INCS := -I $(D_UNITY)/src -I $(D_UNITY)/extras/fixture/src 
+INCS := -I $(D_UNITY)/src -I $(D_UNITY)/extras/fixture/src
 
 # ------------
 # Targets
@@ -65,7 +65,7 @@ pdf: doxygen
 test-$(PROJECT): $(PROJECT_WITH_TESTS_O)
 	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITH_TESTS_O) -o $@ $(LIBS) $(INCS)
 .phony:	clean
-	
+
 clean:
 	-$(RM) $(PROJECT_WITH_TESTS_O) $(PROJECT) test-$(PROJECT)
 	-$(RM) $(FILES_O) $(PROJECT) $(D_DOC)/output $(D_SRC)/main.o
