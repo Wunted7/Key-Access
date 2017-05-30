@@ -1,11 +1,6 @@
-#include "lib.h"
-#define MAX_SIZE 50
-#define MAX_LETTER 26
-#define COLUMS_IN_FILE1 2
 /*!
 @file output.c
 @{
-
 \brief
 Файл отвечает за авторизацию пользователей
 *
@@ -29,30 +24,34 @@ int output()
     //Переменные
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-    FILE *C, *NAME;
+    FILE *C = NULL, *NAME = NULL;
     double B[MAX_LETTER], D[MAX_LETTER][COLUMS_IN_FILE1];
-    unsigned int j, count = 0, k = 0, count_1 = 0, max = 0;
+    unsigned int j = 0, count = 0, k = 0, count_1 = 0, max = 0;
     double time_of_press = 0.0, sr_zn = 0.0, sum = 0, time_of_release = 0.0;
-    char name[20], name_1[20];
+    char name[LEN_NAME_FILE], name_1[LEN_NAME_FILE];
     bool quit = false;
     if (!al_init())
     {
-        return -1;
+        puts("Проблемы с загрузкой ALLEGRO, попробуйте снова");
+        return EXIT_FAILURE;
     }
     if (!al_install_keyboard())
     {
-        return -1;
+        puts("Проблемы с клавиатурой ALLEGRO, попробуйте снова");
+        return EXIT_FAILURE;
     }
     al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
-    display = al_create_display(800, 600);
+    display = al_create_display(SCREEN_HEIGHT, SCREEN_WIDTH);
     if (!display)
     {
-        return -1;
+        puts("Проблемы с дисплеем, попробуйте снова");
+        al_destroy_display(display);
+        return EXIT_FAILURE;
     }
     ALLEGRO_FONT* font = al_create_builtin_font();
     ALLEGRO_USTR* str = al_ustr_new("Please enter this sentence: pack my box with five dozen liquor jugs.");
     ALLEGRO_USTR* tab = al_ustr_new("");
-    int pos1 = (int)al_ustr_size(tab);
+    int position = (int)al_ustr_size(tab);
     event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -126,9 +125,10 @@ int output()
     NAME = fopen("NAME", "r");
     if (NAME == NULL)
     {
-        puts("Problems");
+        puts("Проблемы с открытием файла, попробуйте снова");
+        al_destroy_display(display);
         al_destroy_event_queue(event_queue);
-            al_destroy_display(display);
+        return EXIT_FAILURE;
     }
     while (fscanf(NAME, "%s", name) != EOF)
     {
@@ -136,9 +136,10 @@ int output()
         C = fopen(name, "r");
         if (C == NULL)
         {
-            puts("Problems");
-        al_destroy_event_queue(event_queue);
-        al_destroy_display(display);
+            puts("Проблемы с открытием файла, попробуйте снова");
+            al_destroy_display(display);
+            al_destroy_event_queue(event_queue);
+            return EXIT_FAILURE;
         }
         for (count = 0; count < MAX_LETTER; ++count)
         {
