@@ -22,7 +22,7 @@
 Subdirectory | Description
 -------------|-------------------
 src/         | source files
-src/test     | unit tests
+src/tests     | unit tests
 doc/         | documentation
 
 ### Сборка
