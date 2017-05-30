@@ -3,6 +3,8 @@
   #define MAX_LETTER 26
   #define COLUMS_IN_FILE1 2
   #define LEN_NAME_FILE 20
+  #define SCREEN_HEIGHT 800
+  #define SCREEN_WIDTH 600
   /*!
   @file input.c
   @{
@@ -27,11 +29,10 @@
     //Переменные
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-    FILE *C, *X, *NAME;
+    FILE *C =  NULL, *X = NULL, *NAME = NULL;
     double B[MAX_LETTER][COLUMS_IN_FILE1];
-    unsigned int j, i, k = 0;
-    double time_A = 0.0, sr_zn = 0.0, t = 0, sum = 0;
-    double time_B = 0.0;
+    unsigned int j = 0, i = 0, k = 0;
+    double time_of_press = 0.0, sr_zn = 0.0, interrval = 0, sum = 0, time_of_release = 0.0;
     char name[LEN_NAME_FILE]={0};
     while(1)
     {
@@ -69,32 +70,27 @@
     bool quit = false;
     if (!al_init())
     {
-        puts("Проблемы с загрузкой , попробуйте снова");
-        al_destroy_display(display);
-        al_destroy_event_queue(event_queue);
+        puts("Проблемы с загрузкой ALLEGRO, попробуйте снова");
         return EXIT_FAILURE;
     }
     if (!al_install_keyboard())
     {
-        puts("Проблемы с загрузкой , попробуйте снова");
-        al_destroy_display(display);
-        al_destroy_event_queue(event_queue);
+        puts("Проблемы с клавиатурой ALLEGRO, попробуйте снова");
         return EXIT_FAILURE;
     }
     al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
-    display = al_create_display(800, 600);
+    display = al_create_display(SCREEN_HEIGHT, SCREEN_WIDTH);
     if (!display)
     {
-        puts("Проблемы с загрузкой , попробуйте снова");
+        puts("Проблемы с дисплеем, попробуйте снова");
         al_destroy_display(display);
-        al_destroy_event_queue(event_queue);
         return EXIT_FAILURE;
   	}
 
   	ALLEGRO_FONT* font = al_create_builtin_font();
   	ALLEGRO_USTR* str = al_ustr_new("Please enter this sentence 13 times , than enter Escape: pack my box with five dozen liquor jugs.");
   	ALLEGRO_USTR* tab = al_ustr_new("");
-  	int pos1 = (int)al_ustr_size(tab);
+  	int position = (int)al_ustr_size(tab);
   	//Инициализация
   	event_queue = al_create_event_queue();
 
@@ -124,7 +120,7 @@
   			{
   				al_ustr_append_cstr(tab, "\n");
   			}
-  			time_A = al_get_time();
+  			time_of_press = al_get_time();
   		}
   		if (ev.type == ALLEGRO_EVENT_KEY_UP)
   		{
@@ -134,14 +130,14 @@
   			}
   			else
   			{
-  				time_B = al_get_time();
+  				time_of_release = al_get_time();
   				while (A[ev.keyboard.keycode - 1][k] != 0)
   				{
   					k++;
   				}
   				if(k <= MAX_SIZE)
             {
-                A[ev.keyboard.keycode - 1][k] = time_B - time_A;
+                A[ev.keyboard.keycode - 1][k] = time_of_release - time_of_press;
   				}
   				for (i = 0; i < k; i++)
   				{
@@ -150,7 +146,7 @@
   				sr_zn = sum / k;
   				if (k != 1)
   				{
-  					t = delta(k, A[ev.keyboard.keycode - 1], sr_zn);
+  					interrval = delta(k, A[ev.keyboard.keycode - 1], sr_zn);
   				}
   				k = 0;
   				sum = 0;
@@ -166,8 +162,8 @@
   			}
   			else if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
   			{
-  				if (al_ustr_prev(tab, &pos1))
-  					al_ustr_truncate(tab, pos1);
+  				if (al_ustr_prev(tab, &position))
+  					al_ustr_truncate(tab, position);
   			}
   		}
 
