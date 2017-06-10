@@ -30,7 +30,7 @@ TEST_TEAR_DOWN(TestString)
 */
 TEST(TestString, namefile_add_1)
 {
-	char a[20]="NAME1", b[20]="NAME";
+	char a[21]="NAMENAMENAMENAMENAM1", b[20]="NAMENAMENAMENAMENAM";
 	strncat1(b);
 	TEST_ASSERT_EQUAL_STRING(a, b);
 }
@@ -38,9 +38,10 @@ TEST(TestString, namefile_add_1)
 Тестирование прибавления единицы к концу строки
 Сравнивает ожидаемую строку с полученной
 */
+
 TEST(TestString, namefile_add_1_2)
 {
-	char a[20]="N1", b[20]="N";
+	char a[20]="1", b[20]="";
 	strncat1(b);
 	TEST_ASSERT_EQUAL_STRING(a, b);
 }

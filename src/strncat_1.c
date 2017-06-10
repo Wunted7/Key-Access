@@ -23,8 +23,13 @@ void strncat_1(char *stroka)
     {
         i++;
     }
-    i--;
-    stroka[i] = '\0';
+    if (i != 0){
+      i--;
+      stroka[i] = '\0';
+    }
+    else {
+      printf("Error, name is empty");
+    }
 }
 /**
 @}

@@ -24,6 +24,9 @@ void strncat1(char *stroka)
         i++;
     }
     char k = '1';
+    if (sizeof(stroka) == strlen(stroka)){
+        stroka = (char *) realloc(stroka, (i+1)*sizeof(char));
+    }
     stroka[i] = k;
     i++;
     stroka[i] = '\0';
