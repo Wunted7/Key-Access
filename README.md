@@ -9,11 +9,9 @@
 ````
 ### Интрефейс
 Авторизация:
-![Image alt](http://cdn1.savepice.ru/uploads/2017/5/26/d4b7964b6d9c5e75ddcd62fdb65aef0c-full.jpg)
 Для авторизации нужно ввести в консоли 2 и в появившемся окне окне ввести предложенную фразу.
 
 Регистрация:
-![Image alt](http://cdn1.savepice.ru/uploads/2017/5/26/5b5972a3d3de3f15b7f39ef9e7966a69-full.jpg)
 Для регистрации нужно ввести 1, затем ввести свое имя на английском, затем в появившемся окне окне ввести предложенную фразу несколько раз.
 
 ### Структура
@@ -22,7 +20,7 @@
 Subdirectory | Description
 -------------|-------------------
 src/         | source files
-src/tests     | unit tests
+src/tests    | unit tests
 doc/         | documentation
 
 ### Сборка
